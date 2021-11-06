@@ -1,7 +1,7 @@
 """
 Protein Sequencing Project
-Name:
-Roll Number:
+Name: Sneha.K
+Roll Number:2021501022
 """
 
 import hw6_protein_tests as test
