@@ -147,7 +147,11 @@ Parameters: 2D list of strs
 Returns: list of strs
 '''
 def combineProteins(proteinList):
-    return
+    collapse_list=[]
+    for each_list in proteinList:
+        for i in each_list:
+            collapse_list.append(i)
+    return collapse_list
 
 
 '''
@@ -271,4 +275,5 @@ if __name__ == "__main__":
     # test.testMakeCodonDictionary()
     # test.testGenerateProtein()
     # test.testSynthesizeProteins()
-    test.testCommonProteins()
+    # test.testCommonProteins()
+    test.testCombineProteins()
