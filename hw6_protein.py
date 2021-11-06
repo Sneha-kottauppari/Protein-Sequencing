@@ -4,6 +4,7 @@ Name: Sneha.K
 Roll Number:2021501022
 """
 
+from json import load
 from os import read
 import hw6_protein_tests as test
 
@@ -24,6 +25,7 @@ def readFile(filename):
     file_content=""
     for each in temp:
         file_content=file_content+each
+    fp.close()
     return file_content
 
 
@@ -34,7 +36,20 @@ Parameters: str ; int
 Returns: list of strs
 '''
 def dnaToRna(dna, startIndex):
-    return
+    dna=dna.replace('T','U')
+    length=len(dna)
+    temp_list=[]
+    codon_list=[]
+    stop_codons=['UAA','UAG','UGA']
+    for index in range(startIndex,length,3):
+        temp_list.append(dna[index:index+3])
+    for each in temp_list:
+        if each in stop_codons:
+            codon_list.append(each)
+            break
+        else:
+            codon_list.append(each)
+    return codon_list
 
 
 '''
@@ -45,7 +60,15 @@ Returns: dict mapping strs to strs
 '''
 def makeCodonDictionary(filename):
     import json
-    return
+    fj=open(filename,'r')
+    result_dict={}
+    json_dict=load(fj)
+    for k,v in json_dict.items():
+        for each in v:
+            each=each.replace('T','U')
+            result_dict[each]=k
+    fj.close()
+    return result_dict
 
 
 '''
@@ -55,6 +78,8 @@ Parameters: list of strs ; dict mapping strs to strs
 Returns: list of strs
 '''
 def generateProtein(codons, codonD):
+    # for each_condon in codons:
+
     return
 
 
@@ -213,4 +238,6 @@ if __name__ == "__main__":
     print("\n" + "#"*15 + " WEEK 3 OUTPUT " + "#" * 15 + "\n")
     runFullProgram()
     """
-    test.testReadFile()
+    # test.testReadFile()
+    test.testDnaToRna()
+    # test.testMakeCodonDictionary()
