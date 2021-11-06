@@ -112,7 +112,6 @@ def synthesizeProteins(dnaFilename, codonFilename):
             final_protein_list.append(protein_seq)
             i=i+len(codons_list)*3
         else: i=i+1
-
     return final_protein_list
 
 
@@ -132,7 +131,13 @@ Parameters: 2D list of strs ; 2D list of strs
 Returns: 2D list of strs
 '''
 def commonProteins(proteinList1, proteinList2):
-    return
+    unique_list=[]
+    for each_list in proteinList1:
+        if each_list in proteinList2:
+            if each_list not in unique_list:
+                unique_list.append(each_list)
+    
+    return unique_list
 
 
 '''
@@ -265,4 +270,5 @@ if __name__ == "__main__":
     # test.testDnaToRna()
     # test.testMakeCodonDictionary()
     # test.testGenerateProtein()
-    test.testSynthesizeProteins()
+    # test.testSynthesizeProteins()
+    test.testCommonProteins()
