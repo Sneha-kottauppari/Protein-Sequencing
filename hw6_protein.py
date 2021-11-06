@@ -4,6 +4,7 @@ Name: Sneha.K
 Roll Number:2021501022
 """
 
+from os import read
 import hw6_protein_tests as test
 
 project = "Protein" # don't edit this
@@ -17,7 +18,13 @@ Parameters: str
 Returns: str
 '''
 def readFile(filename):
-    return
+    fp=open(filename,'r')
+    text=fp.read()
+    temp=text.split('\n')
+    file_content=""
+    for each in temp:
+        file_content=file_content+each
+    return file_content
 
 
 '''
@@ -27,7 +34,20 @@ Parameters: str ; int
 Returns: list of strs
 '''
 def dnaToRna(dna, startIndex):
-    return
+    dna=dna.replace('T','U')
+    length=len(dna)
+    temp_list=[]
+    condon_list=[]
+    stop_condons=['UAA','UAG','UGA']
+    for index in range(startIndex,length,3):
+        temp_list.append(dna[index:index+3])
+    for each in temp_list:
+        if each in stop_condons:
+            condon_list.append(each)
+            break
+        else:
+            condon_list.append(each)
+    return condon_list
 
 
 '''
@@ -186,10 +206,10 @@ def runFullProgram():
 
 # This code runs the test cases to check your work
 if __name__ == "__main__":
-    print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
-    test.week1Tests()
-    print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
-    runWeek1()
+    # print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
+    # test.week1Tests()
+    # print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
+    # runWeek1()
 
     ## Uncomment these for Week 2 ##
     """
@@ -206,3 +226,5 @@ if __name__ == "__main__":
     print("\n" + "#"*15 + " WEEK 3 OUTPUT " + "#" * 15 + "\n")
     runFullProgram()
     """
+    # test.testReadFile()
+    test.testDnaToRna()
