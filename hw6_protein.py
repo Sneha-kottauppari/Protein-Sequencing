@@ -6,6 +6,9 @@ Roll Number:2021501022
 
 from json import load
 from os import read
+from matplotlib.pyplot import xlabel
+
+import numpy
 import hw6_protein_tests as test
 
 project = "Protein" # don't edit this
@@ -289,7 +292,6 @@ def setupChartData(labels, proteinList):
             freq_list.append(freq_value)
         else:
             freq_list.append(0)
-
     return freq_list
 
 
@@ -301,8 +303,28 @@ Returns: None
 '''
 def createChart(xLabels, freqList1, label1, freqList2, label2, edgeList=None):
     import matplotlib.pyplot as plt
+    import numpy as np
+    print(freqList1)
+    w = 0.35  # the width of the bars
+    xValues=xLabels
+    values1= freqList1
+    values2= freqList2 
+    plt.bar(xValues, values1, width=-w, align='edge', label=label1)
+    plt.bar(xValues, values2, width= w, align='edge', label=label2)
+
+    plt.xticks(rotation="vertical")
+    plt.legend()
+    plt.title("comparing gene graphically")
+
+    plt.show()
+
+
+
+
+
     return
 
+    
 
 '''
 makeEdgeList(labels, biggestDiffs)
@@ -358,4 +380,5 @@ if __name__ == "__main__":
     # test.testAminoAcidDictionary()
     # test.testFindAminoAcidDifferences()
     # test.testMakeAminoAcidLabels()
-    test.testSetupChartData()
+    # test.testSetupChartData()
+    test.testCreateChart()
