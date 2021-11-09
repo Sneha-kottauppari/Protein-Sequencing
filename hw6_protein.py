@@ -305,12 +305,11 @@ Returns: None
 def createChart(xLabels, freqList1, label1, freqList2, label2, edgeList):
     import matplotlib.pyplot as plt
     import numpy as np
-    print(freqList1)
     w = 0.35  # the width of the bars
     xValues=xLabels
     values1= freqList1
     values2= freqList2 
-    plt.bar(xValues, values1, width=-w,align='edge',label=label1,edgecolor = edgeList)
+    plt.bar(xValues, values1, width=-w,align='edge',label=label1, edgecolor=edgeList)
     plt.bar(xValues, values2, width= w,align='edge', label=label2,edgecolor=edgeList)
     plt.xticks(rotation="vertical")
     plt.legend()
@@ -338,7 +337,6 @@ def makeEdgeList(labels, biggestDiffs):
             edge_list.append("black")
         else:
             edge_list.append("white")
-
     return edge_list
 
 '''
@@ -348,6 +346,17 @@ Parameters: no parameters
 Returns: None
 '''
 def runFullProgram():
+    human_protein_list=synthesizeProteins("data\human_p53.txt","data\codon_table.json")
+    elephant_protein_list=synthesizeProteins("data\elephant_p53.txt","data\codon_table.json")
+    commonalities =commonProteins(human_protein_list,elephant_protein_list)
+    differences=findAminoAcidDifferences(human_protein_list,elephant_protein_list,0.005)
+    displayTextResults(commonalities,differences)
+    labels = makeAminoAcidLabels(human_protein_list, elephant_protein_list)
+    f1 = setupChartData(labels, human_protein_list)
+    f2 = setupChartData(labels, elephant_protein_list)
+    # diff_edges=
+    edges = makeEdgeList(labels,differences)
+    createChart(labels,f1, "Human", f2, "Elephant", edgeList=edges)
     return
 
 
@@ -360,7 +369,7 @@ if __name__ == "__main__":
     # print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
     # runWeek1()
 
-    ## Uncomment these for Week 2 ##
+    # # Uncomment these for Week 2 ##
 
     # print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
     # test.week2Tests()
@@ -368,13 +377,13 @@ if __name__ == "__main__":
     # runWeek2()
 
 
-    ## Uncomment these for Week 3 ##
-    """
-    print("\n" + "#"*15 + " WEEK 3 TESTS " +  "#" * 16 + "\n")
-    test.week3Tests()
-    print("\n" + "#"*15 + " WEEK 3 OUTPUT " + "#" * 15 + "\n")
+    # # Uncomment these for Week 3 ##
+ 
+    # print("\n" + "#"*15 + " WEEK 3 TESTS " +  "#" * 16 + "\n")
+    # test.week3Tests()
+    # print("\n" + "#"*15 + " WEEK 3 OUTPUT " + "#" * 15 + "\n")
     runFullProgram()
-    """
+
     # test.testReadFile()
     # test.testDnaToRna()
     # test.testMakeCodonDictionary()
@@ -387,4 +396,4 @@ if __name__ == "__main__":
     # test.testMakeAminoAcidLabels()
     # test.testSetupChartData()
     # test.testCreateChart
-    test.testMakeEdgeList()
+    # test.testMakeEdgeList()
