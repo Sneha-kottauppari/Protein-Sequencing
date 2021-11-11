@@ -40,11 +40,11 @@ def dnaToRna(dna, startIndex):
     length=len(dna)
     temp_list=[]
     condon_list=[]
-    stop_condons=['UAA','UAG','UGA']
+    stop_codons=['UAA','UAG','UGA']
     for index in range(startIndex,length,3):
         temp_list.append(dna[index:index+3])
     for each in temp_list:
-        if each in stop_condons:
+        if each in stop_codons:
             condon_list.append(each)
             break
         else:
@@ -97,7 +97,23 @@ Parameters: str ; str
 Returns: 2D list of strs
 '''
 def synthesizeProteins(dnaFilename, codonFilename):
-    return
+    dna_in_file=readFile(dnaFilename)
+    codon_dict= makeCodonDictionary(codonFilename)
+    count=0
+    final_protein_list=[]
+    i=0
+    codons_list=[]
+    while i<len(dna_in_file):
+        if dna_in_file[i:i+3] == 'ATG':
+            start_index=i
+            count+=1
+            codons_list=dnaToRna(dna_in_file,start_index)
+            protein_seq = generateProtein(codons_list,codon_dict)
+            final_protein_list.append(protein_seq)
+            i=i+len(codons_list)*3
+        else: i=i+1
+
+    return final_protein_list
 
 
 def runWeek1():
@@ -248,4 +264,5 @@ if __name__ == "__main__":
     # test.testReadFile()
     # test.testDnaToRna()
     # test.testMakeCodonDictionary()
-    test.testGenerateProtein()
+    # test.testGenerateProtein()
+    test.testSynthesizeProteins()
