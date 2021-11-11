@@ -239,5 +239,5 @@ if __name__ == "__main__":
     runFullProgram()
     """
     # test.testReadFile()
-    test.testDnaToRna()
-    # test.testMakeCodonDictionary()
+    # test.testDnaToRna()
+    test.testMakeCodonDictionary()
