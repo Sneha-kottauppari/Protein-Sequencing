@@ -9,6 +9,7 @@ from os import read
 from matplotlib.pyplot import xlabel
 
 import numpy
+from numpy.lib.function_base import append
 import hw6_protein_tests as test
 
 project = "Protein" # don't edit this
@@ -301,7 +302,7 @@ createChart(xLabels, freqList1, label1, freqList2, label2, edgeList=None)
 Parameters: list of strs ; list of floats ; str ; list of floats ; str ; [optional] list of strs
 Returns: None
 '''
-def createChart(xLabels, freqList1, label1, freqList2, label2, edgeList=None):
+def createChart(xLabels, freqList1, label1, freqList2, label2, edgeList):
     import matplotlib.pyplot as plt
     import numpy as np
     print(freqList1)
@@ -309,18 +310,13 @@ def createChart(xLabels, freqList1, label1, freqList2, label2, edgeList=None):
     xValues=xLabels
     values1= freqList1
     values2= freqList2 
-    plt.bar(xValues, values1, width=-w, align='edge', label=label1)
-    plt.bar(xValues, values2, width= w, align='edge', label=label2)
-
+    plt.bar(xValues, values1, width=-w,align='edge',label=label1,edgecolor = edgeList)
+    plt.bar(xValues, values2, width= w,align='edge', label=label2,edgecolor=edgeList)
     plt.xticks(rotation="vertical")
     plt.legend()
     plt.title("comparing gene graphically")
 
     plt.show()
-
-
-
-
 
     return
 
@@ -333,8 +329,17 @@ Parameters: list of strs ; 2D list of values
 Returns: list of strs
 '''
 def makeEdgeList(labels, biggestDiffs):
-    return
+    edge_list=[]
+    diff_list=[]
+    for each_list in biggestDiffs:
+        diff_list.append(each_list[0])
+    for each_acid in labels:
+        if each_acid in diff_list:
+            edge_list.append("black")
+        else:
+            edge_list.append("white")
 
+    return edge_list
 
 '''
 runFullProgram()
@@ -381,4 +386,5 @@ if __name__ == "__main__":
     # test.testFindAminoAcidDifferences()
     # test.testMakeAminoAcidLabels()
     # test.testSetupChartData()
-    test.testCreateChart()
+    # test.testCreateChart
+    test.testMakeEdgeList()
