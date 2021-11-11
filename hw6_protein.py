@@ -78,6 +78,8 @@ Parameters: list of strs ; dict mapping strs to strs
 Returns: list of strs
 '''
 def generateProtein(codons, codonD):
+    # for each_condon in codons:
+
     return
 
 
