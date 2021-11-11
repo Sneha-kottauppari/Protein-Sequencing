@@ -227,6 +227,20 @@ Parameters: 2D list of strs ; 2D list of values
 Returns: None
 '''
 def displayTextResults(commonalities, differences):
+    ##display for commoalities##
+    for each_list in sorted(commonalities):
+        each_list=sorted(each_list)
+        display_string=""
+        for i in range(len(each_list)):
+            if each_list[i]!="Start" and each_list[i]!="Stop":
+                display_string = display_string + "-"+ str(each_list[i])
+        print(display_string.strip('-'))
+    print('^'*10)
+    ##display for differences##
+    for each_diff in sorted(differences):
+        freq1=round(each_diff[1]*100,2)
+        freq2=round(each_diff[2],2)
+        print(each_diff[0], ":", freq1, "% in seq1,", freq2, "% in seq2")
     return
 
 
@@ -302,12 +316,12 @@ if __name__ == "__main__":
     # runWeek1()
 
     ## Uncomment these for Week 2 ##
-    """
-    print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
-    test.week2Tests()
+
+    # print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
+    # test.week2Tests()
     print("\n" + "#"*15 + " WEEK 2 OUTPUT " + "#" * 15 + "\n")
     runWeek2()
-    """
+
 
     ## Uncomment these for Week 3 ##
     """
@@ -324,4 +338,4 @@ if __name__ == "__main__":
     # test.testCommonProteins()
     # test.testCombineProteins()
     # test.testAminoAcidDictionary()
-    test.testFindAminoAcidDifferences()
+    # test.testFindAminoAcidDifferences()
