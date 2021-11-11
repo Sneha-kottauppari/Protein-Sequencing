@@ -267,9 +267,9 @@ def makeAminoAcidLabels(proteinList1, proteinList2):
     labels1=list(for_list1.keys())
     labels2=list(for_list2.keys())
     differencelist=list(set(labels2)-set(labels1))
-    result_lable= sorted(labels1+differencelist)
+    result_label= sorted(labels1+differencelist)
 
-    return result_lable
+    return result_label
 
 
 '''
@@ -279,7 +279,18 @@ Parameters: list of strs ; 2D list of strs
 Returns: list of floats
 '''
 def setupChartData(labels, proteinList):
-    return
+    freq_list=[]
+    aa_list=combineProteins(proteinList)
+    aa_dict=aminoAcidDictionary(aa_list)
+    length=len(aa_list)
+    for each in labels:
+        if each in aa_list:
+            freq_value=aa_dict[each]/length
+            freq_list.append(freq_value)
+        else:
+            freq_list.append(0)
+
+    return freq_list
 
 
 '''
@@ -346,4 +357,5 @@ if __name__ == "__main__":
     # test.testCombineProteins()
     # test.testAminoAcidDictionary()
     # test.testFindAminoAcidDifferences()
-    test.testMakeAminoAcidLabels()
+    # test.testMakeAminoAcidLabels()
+    test.testSetupChartData()
