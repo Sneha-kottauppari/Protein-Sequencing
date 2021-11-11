@@ -39,17 +39,17 @@ def dnaToRna(dna, startIndex):
     dna=dna.replace('T','U')
     length=len(dna)
     temp_list=[]
-    codon_list=[]
-    stop_codons=['UAA','UAG','UGA']
+    condon_list=[]
+    stop_condons=['UAA','UAG','UGA']
     for index in range(startIndex,length,3):
         temp_list.append(dna[index:index+3])
     for each in temp_list:
-        if each in stop_codons:
-            codon_list.append(each)
+        if each in stop_condons:
+            condon_list.append(each)
             break
         else:
-            codon_list.append(each)
-    return codon_list
+            condon_list.append(each)
+    return condon_list
 
 
 '''
