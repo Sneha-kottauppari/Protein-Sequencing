@@ -39,17 +39,17 @@ def dnaToRna(dna, startIndex):
     dna=dna.replace('T','U')
     length=len(dna)
     temp_list=[]
-    condon_list=[]
+    codon_list=[]
     stop_codons=['UAA','UAG','UGA']
     for index in range(startIndex,length,3):
         temp_list.append(dna[index:index+3])
     for each in temp_list:
         if each in stop_codons:
-            condon_list.append(each)
+            codon_list.append(each)
             break
         else:
-            condon_list.append(each)
-    return condon_list
+            codon_list.append(each)
+    return codon_list
 
 
 '''
@@ -136,7 +136,6 @@ def commonProteins(proteinList1, proteinList2):
         if each_list in proteinList2:
             if each_list not in unique_list:
                 unique_list.append(each_list)
-    
     return unique_list
 
 
@@ -151,7 +150,7 @@ def combineProteins(proteinList):
     for each_list in proteinList:
         for i in each_list:
             collapse_list.append(i)
-    return collapse_list
+    return sorted(collapse_list)
 
 
 '''
@@ -167,7 +166,6 @@ def aminoAcidDictionary(aaList):
             aa_count[each_acid]=1
         else:
             aa_count[each_acid]+=1
-
     return aa_count
 
 
@@ -178,7 +176,48 @@ Parameters: 2D list of strs ; 2D list of strs ; float
 Returns: 2D list of values
 '''
 def findAminoAcidDifferences(proteinList1, proteinList2, cutoff):
-    return
+    result_AA=[]
+    ##proteinlist2 list and dict##
+    aa_list1=combineProteins(proteinList1)
+    aa_dict1=aminoAcidDictionary(aa_list1)
+   
+    aa_list2=combineProteins(proteinList2)
+    aa_dict2=aminoAcidDictionary(aa_list2)
+    
+    ## differences##
+    notinlist1=list(set(aa_list2)-set(aa_list1))
+    notinlist2=list(set(aa_list1)-set(aa_list2))
+
+    ##updating dict##
+    for each_acid_a in notinlist1:
+        aa_dict1[each_acid_a]=0
+    for each_acid_b in notinlist2:
+        aa_dict2[each_acid_b]=0
+    
+    ##frequencies##
+    length1=len(aa_list1)
+    aa_freq1={}
+    for each_acid_c in aa_dict1:
+        aa_freq1[each_acid_c]=aa_dict1[each_acid_c]/length1
+
+    length2=len(aa_list2)
+    aa_freq2={}
+    for each_acid_d in aa_dict2:
+        aa_freq2[each_acid_d]=aa_dict2[each_acid_d]/length2
+
+    ##result list##
+    for k,v in aa_dict1.items():
+        inner_list=[]
+        if k!='Start' and k!='Stop':
+            if k in aa_dict2.keys():
+                diff_freq = abs(aa_freq1[k]-aa_freq2[k])
+                if diff_freq>cutoff:
+                    inner_list.append(k)
+                    inner_list.append(aa_freq1[k])
+                    inner_list.append(aa_freq2[k])
+                    result_AA.append(inner_list)
+    return result_AA
+
 
 
 '''
@@ -284,4 +323,5 @@ if __name__ == "__main__":
     # test.testSynthesizeProteins()
     # test.testCommonProteins()
     # test.testCombineProteins()
-    test.testAminoAcidDictionary()
+    # test.testAminoAcidDictionary()
+    test.testFindAminoAcidDifferences()
